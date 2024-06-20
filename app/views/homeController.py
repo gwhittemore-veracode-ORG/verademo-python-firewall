@@ -1,11 +1,8 @@
 # homeController.py deals with the default website redirection.
 
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from .userController import login
 import urllib
-import socket
-import logging
-logger = logging.getLogger("VeraDemo:userController")
 
 # redirects user to feed if they are already logged in, otherwise sends to login
 def home(request):
