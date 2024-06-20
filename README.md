@@ -42,12 +42,19 @@ Then register as a new user and add some feeds!
 
 ## Run locally without Docker (Linux/Mac only)
 
-To run the program locally without using docker run this:
+To run the program locally without using docker:
+
+Clone the repository in terminal:
+
+    git clone https://github.com/veracode-demo-labs/verademo-python.git
+    cd verademo-python
+Download dependencies and start the server!
 
     python3 -m venv env
     source env/bin/activate
     pip install -r requirements.txt
     python manage.py runserver
+Navigate to: `http://127.0.0.1:8080`.
 
 To be able to use the fortune feature in tools (Linux exclusive), run this before running the server:
 
