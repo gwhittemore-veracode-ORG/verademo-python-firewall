@@ -36,7 +36,7 @@ Open the app.
 
     docker run -p 8080:8080 --name verademo ssessions/verademo-python
 
-Navigate to: `http://127.0.0.1:8080`.
+Navigate to: [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
 Then register as a new user and add some feeds!
 
