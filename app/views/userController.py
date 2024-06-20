@@ -330,11 +330,11 @@ def emailUser(username):
         with smtplib.SMTP("localhost", 1025) as server:
             server.send_message(message)
     except smtplib.SMTPException as smtp_err:
-        logger.error("SMTP error", smtp_err)
+        logger.error("SMTP error")
     except ConnectionRefusedError as conn_err:
-        logger.error("Connection refused", conn_err)
+        logger.error("Connection refused")
     except Exception as e:
-        logger.error("Unexpected error", e)
+        logger.error("Unexpected error")
 
 
 # handles redirect for profile requests
