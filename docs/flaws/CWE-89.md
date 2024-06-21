@@ -6,8 +6,9 @@ VeraDemo uses untrusted data concatenation of SQL queries. This leaves the appli
 2. For 'username' type in:
 
    ```johnny'```
+   and press login.
 
-3. Observer account access
+4. Observer account access
 
 # Mitigate
 * Utilize a whitelist to ensure data contains alphanumeric characters
