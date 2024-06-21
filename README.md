@@ -36,7 +36,7 @@ Open the app.
 
     docker run -p 8080:8080 --name verademo ssessions/verademo-python
 
-Navigate to: [http://127.0.0.1:8080](http://127.0.0.1:8080).
+Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 Then register as a new user and add some feeds!
 
@@ -54,7 +54,7 @@ Download dependencies and start the server!
     source env/bin/activate
     pip install -r requirements.txt
     python manage.py runserver
-Navigate to: `http://127.0.0.1:8080`.
+Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 To be able to use the fortune feature in tools (Linux exclusive), run this before running the server:
 
