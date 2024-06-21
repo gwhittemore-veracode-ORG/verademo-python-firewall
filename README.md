@@ -34,7 +34,7 @@ Open the app.
 
 ### In terminal:
 
-    docker run -p 8080:8080 --name verademo ssessions/verademo-python
+    docker run -p 8000:8000 --name verademo ssessions/verademo-python
 
 Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
