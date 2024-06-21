@@ -96,13 +96,21 @@ def login(request):
             logger.info("Creating the Database connection")
             with connection.cursor() as cursor:
                 logger.info("Creating database query")
-
+                # START VULN CODE
                 sqlQuery = "select username, password, password_hint, created_at, last_login, \
                             real_name, blab_name from users where username='" + username + "' \
                             and password='" + hashlib.md5(password.encode('utf-8')).hexdigest() + "';"
 
                 logger.info(sqlQuery)
                 cursor.execute(sqlQuery)
+                # END VULN CODE
+                # GOOD CODE
+                # sqlQuery = "select username, password, password_hint, created_at, last_login, \
+                #            real_name, blab_name from users where username=:username and password=:password;"
+                
+                # logger.info(sqlQuery, {"username": username, "password": hashlib.md5(password.encode('utf-8')).hexdigest()})
+                # cursor.execute(sqlQuery, {"username": username, "password": hashlib.md5(password.encode('utf-8')).hexdigest()})
+                # END GOOD CODE
                 row = cursor.fetchone()
 
                 if (row):
