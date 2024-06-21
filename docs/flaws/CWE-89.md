@@ -5,7 +5,7 @@ VeraDemo uses untrusted data concatenation of SQL queries. This leaves the appli
 1. Go to login page
 2. For 'username' type in:
 
-   ```johnny'```
+   ```johnny'--```
    and press login.
 
 4. Observer account access
