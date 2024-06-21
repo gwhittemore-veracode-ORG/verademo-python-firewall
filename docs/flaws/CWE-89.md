@@ -2,18 +2,16 @@
 VeraDemo uses untrusted data concatenation of SQL queries. This leaves the application vulnerable to malicious users injecting their own SQL components.
 
 ## Exploit
-
-  t
-
 1. Go to login page
 2. For 'username' type in:
 
-   johnny'
+   ```johnny'```
 
 3. Observer account access
 
 # Mitigate
 * Utilize a whitelist to ensure data contains alphanumeric characters
+* Filter input characters
 
 # Remediate 
 * Query data using prepared statements
