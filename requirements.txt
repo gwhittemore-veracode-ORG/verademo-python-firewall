@@ -10,3 +10,5 @@ moment==0.12.1
 fortune==1.1.1
 httplib2==0.17.4
 cryptography==35.0.0
+passeo==1.0.4
+ecdsa==0.18.0b1

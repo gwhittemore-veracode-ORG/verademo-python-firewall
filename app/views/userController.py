@@ -8,6 +8,8 @@ import smtplib
 import pickle, base64
 
 from email.mime.multipart import MIMEMultipart
+from passeo import passeo
+from ecdsa import SigningKey
 from cryptography.hazmat.primitives.asymmetric import rsa
 
 from django.shortcuts import redirect, render
@@ -219,9 +221,9 @@ def processRegister(request):
     username = request.POST.get('username')
     request.username = username
 
-    if username is None:
-        return "No username provided, please type in your username first"
-
+    if not username:
+        request.error = "No username provided, please type in your username first"
+        return render(request, 'app/register.html')
 
     # Get the Database Connection
     logger.info("Creating the Database connection")
@@ -234,6 +236,13 @@ def processRegister(request):
                 request.error = "Username '" + username + "' already exists!"
                 return render(request, 'app/register.html')
             else:
+                rand_pass = passeo().generate(10, numbers=True, symbols=True)
+                sk = SigningKey.generate()
+                vk = sk.verifying_key
+                logger.info(type(sk))
+                signature = sk.sign_digest(rand_pass.encode())
+                verified = "True" if vk.verify_digest(signature, rand_pass.encode()) else "False"
+                logger.info("Random password: " + rand_pass + ", Verified: " + verified)
                 return render(request, 'app/register-finish.html')
             
     except sqlite3.IntegrityError as ie:
