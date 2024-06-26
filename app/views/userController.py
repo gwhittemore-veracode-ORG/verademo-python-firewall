@@ -1,10 +1,10 @@
 # userController handles user logic, including user login, registration, and profile updating.
 import logging
-import sys
 import os
 import sqlite3
 import hashlib
 import smtplib
+import pyotp
 import pickle, base64
 
 from email.mime.multipart import MIMEMultipart
@@ -130,10 +130,19 @@ def login(request):
                                     last_login=row["last_login"], real_name=row["real_name"], 
                                     blab_name=row["blab_name"])
                         response = updateInResponse(currentUser, response)
-                    request.session['username'] = row['username']
 
                     update = "UPDATE users SET last_login=datetime('now') WHERE username='" + row['username'] + "';"
                     cursor.execute(update)
+
+                    # if the username ends with "totp", add the TOTP login step
+                    if username[-4:].lower() == "totp":
+                        logger.info("User " + username + " has TOTP enabled")
+                        request.session['totp_username'] = username
+                        response = redirect('totp')
+                    else:
+                        logger.info("Setting session username to " + username)
+                        request.session['username'] = username
+                    
                 else:
                     logger.info("User not found")
 
@@ -191,6 +200,97 @@ def showPasswordHint(request):
             logger.error("Unexpected error", e)
         
     return HttpResponse("ERROR!")
+
+@csrf_exempt
+def totp(request):
+    if(request.method == "GET"):
+        return showTotp(request)
+    elif(request.method == "POST"):
+        return processTotp(request)
+
+def showTotp(request):
+    username = username.session.totp_username
+    logger.info("Entering showTotp for user " + username)
+
+    # lookup the TOTP secret
+    # really here to display back to the user (it's a hack for a demo app ;) )
+    try:
+        #Create db connection
+        with connection.cursor() as cursor:
+
+            sql = "SELECT totp_secret FROM users WHERE username = '" + username + "'"
+            logger.info(sql)
+            cursor.execute(sql)
+
+            result = cursor.fetchone
+        if result:
+            totpSecret = result["totp_secret"]
+            logger.info("Found TOTP secret")
+            request['totpSecret'] = totpSecret
+        else:
+            request["totpSecret"] = "unknown"
+    except sqlite3.IntegrityError as ie:
+        logger.error(ie.sqlite_errorcode, ie.sqlite_errorname)
+    except sqlite3.Error as ex :
+        logger.error(ex.sqlite_errorcode, ex.sqlite_errorname)
+    except Exception as e:
+        logger.error("Unexpected error", e)
+    
+
+    return render(request, 'app/totp.html',{})
+
+
+def processTotp(request):
+    totpCode = request.POST.get('totpCode')
+    username = request.session.totp_username
+    logger.info("Entering processTotp for user " + username + ", code entered: " + totpCode)
+
+    response = redirect('login'); # assume we're going to fail
+
+    # lookup the TOTP secret
+    try:
+        
+        with connection.cursor() as cursor:
+        
+            sql = "SELECT totp_secret FROM users WHERE username = '" + username + "'"
+            logger.info(sql)
+            cursor.execute(sql)
+
+            result = cursor.fetchone()
+            if result:
+                totpSecret = result["totp_secret"]
+                logger.info("Found TOTP secret")
+
+                # validate the TOTP code
+                totp = pyotp.TOTP(totpSecret)
+
+                # secret = the shared secret for the user
+                # code = the code submitted by the user
+                if totp.verify(totpCode):
+                    logger.info("TOTP validation success")
+                    request.session['username'] = username
+                    nextView = redirect('feed')
+                else:
+                    logger.info("TOTP validation failure")
+                    request.session['username'] = None
+                    request.session['totp_username'] = None
+
+                    currentUser = None
+                    response = updateInResponse(currentUser, response)
+                    logger.info("Redirecting to Login...")
+                    return redirect('login')
+            
+            else:
+                logger.info("Failed to find TOTP secret in database - something is very wrong")
+    except sqlite3.IntegrityError as ie:
+        logger.error(ie.sqlite_errorcode, ie.sqlite_errorname)
+    except sqlite3.Error as ex :
+        logger.error(ex.sqlite_errorcode, ex.sqlite_errorname)
+    except Exception as e:
+        logger.error("Unexpected error", e)
+
+    return nextView
+
 
 # funcitonality called by logout button
 def logout(request):
