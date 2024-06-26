@@ -8,7 +8,7 @@ Also see the `docs/flaws` folder for in-depth explanations of the various exploi
 
 Build the app:
 
-	zip -r verademo-python.zip app verademo-python *.py requirements.txt
+	zip -r verademo-python.zip app verademo-python *.py requirements.txt -x "*__pycache__*" 
 
 The verademo-python.zip file is the file to upload for scanning. Either upload this file to the Veracode platform for a Policy/Sandbox scan, or use it with the Veracode Pipeline scan.
 
