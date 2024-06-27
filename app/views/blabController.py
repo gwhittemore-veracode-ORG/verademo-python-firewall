@@ -289,7 +289,7 @@ def blabbers(request):
                     " SUM(iif(listeners.listener='%s', 1, 0)) as listeners,"
                     " SUM(iif(listeners.status='Active',1,0)) as listening"
                     " FROM users LEFT JOIN listeners ON users.username = listeners.blabber"
-                    " WHERE users.username NOT IN (\"admin\",'%s')" + " GROUP BY users.username" + " ORDER BY " + sort + ";")
+                    " WHERE users.username NOT IN (\"admin\",\"admin-totp\",'%s')" + " GROUP BY users.username" + " ORDER BY " + sort + ";")
 
         try:
             logger.info("Creating database connection")

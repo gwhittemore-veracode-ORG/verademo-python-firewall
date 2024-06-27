@@ -1,6 +1,7 @@
 # models.py defines database tables that get created, in addition to blabbers class
 import hashlib
 import moment
+import pyotp
 
 from django.db import models
 
@@ -14,6 +15,7 @@ class User(models.Model):
     username = models.CharField(primary_key=True, max_length=100)
     password = models.CharField(max_length=100,null=True)
     password_hint = models.CharField(max_length=100, null=True)
+    totp_secret = models.CharField(max_length=100, null=True)
     created_at = models.DateTimeField(null=True)
     last_login = models.DateTimeField(null=True)
     real_name = models.CharField(max_length=100, null=True)
@@ -24,7 +26,7 @@ def create(userName, blabName,realName):
     password = userName
     dateCreated = moment.now().format("YYYY-MM-DD hh:mm:ss")
     lastLogin = None
-    return User(userName, hashlib.md5(password.encode('utf-8')).hexdigest(), userName, dateCreated, lastLogin, blabName, realName)
+    return User(userName, hashlib.md5(password.encode('utf-8')).hexdigest(), userName, pyotp.random_base32(), dateCreated, lastLogin, realName, blabName)
 
 # Table for a blab, which is a message on the website
 class Blab(models.Model):

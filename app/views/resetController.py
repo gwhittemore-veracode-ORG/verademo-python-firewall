@@ -19,6 +19,7 @@ logger = logging.getLogger("VeraDemo:resetController")
 # Did not include admin in users list due to pre-existing admin functionality with DJango
 users = [
         create("admin", "admin", "Mr. Administrator"),
+        create("admin-totp", "admin-totp", "Admin with TOTP"),
 		create("john", "John", "John Smith"),
         create("paul", "Paul", "Paul Farrington"),
         create("chrisc", "Chris", "Chris Campbell"),
@@ -93,20 +94,20 @@ def processReset(request):
             with transaction.atomic():
                 # Add the users
                 logger.info("Preparing the Stetement for adding users")
-                usersStatement = "INSERT INTO users (username, password, password_hint, created_at, last_login, real_name, blab_name) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s');"
+                usersStatement = "INSERT INTO users (username, password, password_hint, totp_secret, created_at, last_login, real_name, blab_name) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');"
                 if users[0].password == "21232f297a57a5a743894a0e4a801fc3":
                     logger.info("Encryption successful!")
                 for user in users:
                     logger.info("Adding user " + user.username)
-                    cursor.execute(usersStatement % (user.username, user.password, user.password_hint, user.created_at,
+                    cursor.execute(usersStatement % (user.username, user.password, user.password_hint, user.totp_secret, user.created_at,
                                                      user.last_login, user.real_name, user.blab_name))
 
             # Add the listeners
             logger.info("Preparing the Statement for adding listeners")
             with transaction.atomic():
                 listenersStatement = "INSERT INTO listeners (blabber, listener, status) values ('%s', '%s', 'Active');"
-                for blabber in users[1:]:
-                    for listener in users[1:]:
+                for blabber in users[2:]:
+                    for listener in users[2:]:
                         if rand.choice([False, True]) and (blabber != listener):
                             
 
@@ -124,7 +125,7 @@ def processReset(request):
                 blabsStatement = "INSERT INTO blabs (blabber, content, timestamp) values (%s, %s, datetime('now'));"
                 for blabContent in blabsContent:
                     # Get the array offset for a random user
-                    randomUserOffset = rand.randint(1,len(users) - 1)
+                    randomUserOffset = rand.randint(2,len(users) - 1)
 
                     # get the number or seconds until some time in the last 30 days.
                     #vary = rand.randint(0,(30 * 24 * 3600)+1)
@@ -147,7 +148,7 @@ def processReset(request):
 
                     for j in range(count) :
                         # Get the array offset for a random user
-                        randomUserOffset = rand.randint(1,len(users)-1) #removed +1 cause no admin,  removed -2 because no admin and inclusive.
+                        randomUserOffset = rand.randint(2,len(users)-1) #removed +1 cause no admin,  removed -2 because no admin and inclusive.
                         username = users[randomUserOffset].username
 
                         # Pick a random comment to add

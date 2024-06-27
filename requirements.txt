@@ -13,3 +13,4 @@ cryptography==35.0.0
 passeo==1.0.4
 ecdsa==0.18.0b1
 requests==2.30.0
+pyotp==2.9.0

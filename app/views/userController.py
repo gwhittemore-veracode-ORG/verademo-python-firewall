@@ -137,11 +137,11 @@ def login(request):
                     # if the username ends with "totp", add the TOTP login step
                     if username[-4:].lower() == "totp":
                         logger.info("User " + username + " has TOTP enabled")
-                        request.session['totp_username'] = username
+                        request.session['totp_username'] = row['username']
                         response = redirect('totp')
                     else:
                         logger.info("Setting session username to " + username)
-                        request.session['username'] = username
+                        request.session['username'] = row['username']
                     
                 else:
                     logger.info("User not found")
@@ -209,7 +209,7 @@ def totp(request):
         return processTotp(request)
 
 def showTotp(request):
-    username = username.session.totp_username
+    username = request.session.get('totp_username')
     logger.info("Entering showTotp for user " + username)
 
     # lookup the TOTP secret
@@ -222,13 +222,13 @@ def showTotp(request):
             logger.info(sql)
             cursor.execute(sql)
 
-            result = cursor.fetchone
+            result = cursor.fetchone()
         if result:
-            totpSecret = result["totp_secret"]
+            totpSecret = result[0]
             logger.info("Found TOTP secret")
-            request['totpSecret'] = totpSecret
+            request.totpSecret = totpSecret
         else:
-            request["totpSecret"] = "unknown"
+            request.totpSecret = "unknown"
     except sqlite3.IntegrityError as ie:
         logger.error(ie.sqlite_errorcode, ie.sqlite_errorname)
     except sqlite3.Error as ex :
@@ -237,12 +237,12 @@ def showTotp(request):
         logger.error("Unexpected error", e)
     
 
-    return render(request, 'app/totp.html',{})
+    return render(request, 'app/totp.html')
 
 
 def processTotp(request):
     totpCode = request.POST.get('totpCode')
-    username = request.session.totp_username
+    username = request.session.get('totp_username')
     logger.info("Entering processTotp for user " + username + ", code entered: " + totpCode)
 
     response = redirect('login'); # assume we're going to fail
@@ -258,6 +258,8 @@ def processTotp(request):
 
             result = cursor.fetchone()
             if result:
+                columns = [col[0] for col in cursor.description]
+                result = dict(zip(columns, result))
                 totpSecret = result["totp_secret"]
                 logger.info("Found TOTP secret")
 
@@ -275,10 +277,12 @@ def processTotp(request):
                     request.session['username'] = None
                     request.session['totp_username'] = None
 
+                    response = redirect('login')
                     currentUser = None
                     response = updateInResponse(currentUser, response)
+                    response.delete_cookie('user')
                     logger.info("Redirecting to Login...")
-                    return redirect('login')
+                    return response
             
             else:
                 logger.info("Failed to find TOTP secret in database - something is very wrong")
@@ -296,6 +300,7 @@ def processTotp(request):
 def logout(request):
     logger.info("Processing logout")
     request.session['username'] = None
+    request.session['totp_username'] = None
     response = redirect('login')
     response.delete_cookie('user')
     logger.info("Redirecting to login...")
@@ -398,11 +403,11 @@ def processRegisterFinish(request):
                 #mysqlCurrentDateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 #create query
                 query = ''
-                query += "insert into users (username, password, password_hint, created_at, real_name, blab_name) values("
+                query += "insert into users (username, password, password_hint, totp_secret, created_at, real_name, blab_name) values("
                 query += ("'" + username + "',")
                 query += ("'" + hashlib.md5(password.encode('utf-8')).hexdigest() + "',")
                 query += ("'" + password + "',")
-                #query += ("'" + mysqlCurrentDateTime + "',")
+                query += ("'" + pyotp.random_base32() + "'")
                 query += ("datetime('now'),")
                 query += ("'" + realName + "',")
                 query += ("'" + blabName + "'")
@@ -509,19 +514,22 @@ def showProfile(request):
                 events.append(result[0])
 
             # Get the users information
-            sql = "SELECT username, real_name, blab_name FROM users WHERE username = '" + username + "'"
+            sql = "SELECT username, real_name, blab_name, totp_secret FROM users WHERE username = '" + username + "'"
             logger.info(sql)
             cursor.execute(sql)
             myInfoResults = cursor.fetchone()
             if not myInfoResults:
                 return JsonResponse({'message':'Error, no Inforesults found'})
             # Send these values to our View
+            columns = [col[0] for col in cursor.description]
+            myInfoResults = dict(zip(columns, myInfoResults))
             request.hecklers = hecklers
             request.events = events
-            request.username = myInfoResults[0]
-            request.image = getProfileImageNameFromUsername(myInfoResults[0])
-            request.realName = myInfoResults[1]
-            request.blabName = myInfoResults[2]
+            request.username = myInfoResults['username']
+            request.image = getProfileImageNameFromUsername(myInfoResults['username'])
+            request.realName = myInfoResults['real_name']
+            request.blabName = myInfoResults['blab_name']
+            request.totpSecret = myInfoResults['totp_secret']
     except sqlite3.Error as ex :
         logger.error(ex.sqlite_errorcode, ex.sqlite_errorname)
     except Exception as e:
