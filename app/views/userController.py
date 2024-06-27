@@ -407,7 +407,7 @@ def processRegisterFinish(request):
                 query += ("'" + username + "',")
                 query += ("'" + hashlib.md5(password.encode('utf-8')).hexdigest() + "',")
                 query += ("'" + password + "',")
-                query += ("'" + pyotp.random_base32() + "'")
+                query += ("'" + pyotp.random_base32() + "',")
                 query += ("datetime('now'),")
                 query += ("'" + realName + "',")
                 query += ("'" + blabName + "'")
