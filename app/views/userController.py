@@ -7,6 +7,7 @@ import smtplib
 import pyotp
 import pickle, base64
 
+import sqlparse
 from email.mime.multipart import MIMEMultipart
 from passeo import passeo
 from ecdsa import SigningKey
@@ -102,8 +103,11 @@ def login(request):
                 sqlQuery = "select username, password, password_hint, created_at, last_login, \
                             real_name, blab_name from users where username='" + username + "' \
                             and password='" + hashlib.md5(password.encode('utf-8')).hexdigest() + "';"
-
                 logger.info(sqlQuery)
+
+                parsed = sqlparse.parse(sqlQuery)[0]
+                logger.info("Attempted login with username and password: " + parsed[8].value)
+
                 cursor.execute(sqlQuery)
                 # END VULN CODE
                 # GOOD CODE
