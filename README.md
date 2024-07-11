@@ -59,7 +59,7 @@ Prerequisite: Python 3.12.3
 
 To check Python version: `python --version` or `python3 --version`
 
- Open Windows PowerShell and clone the repository:
+Clone the repository in terminal:
 
     git clone https://github.com/veracode-demo-labs/verademo-python.git
     cd verademo-python
@@ -83,7 +83,7 @@ Prerequisite: Python 3.12.3
 
 To check Python version: `python --version` or `python3 --version`
 
-Clone the repository in terminal:
+Open Windows PowerShell and clone the repository:
 
     git clone https://github.com/veracode-demo-labs/verademo-python.git
     cd verademo-python
