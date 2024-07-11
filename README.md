@@ -22,20 +22,31 @@ Blab-a-Gag is a fairly simple forum type application which allows:
 - `/tools` shows a tools page that shows a fortune or lets you ping a host.
 - `/reset` allows the user to reset the database
 
-## Run
+## Run Docker image
 
 If you don't already have Docker this is a prerequisite.
 
 ### Download Docker
 
-Visit [docker desktop](https://www.docker.com/products/docker-desktop/) and download your compatible version.\
-Follow installation instructions\
-Open the app.
+Visit [docker desktop](https://www.docker.com/products/docker-desktop/) and download your compatible version.  Follow installation instructions.  Open the Docker app.
 
-### In terminal:
+### Use pre-built Docker image
 
-    docker run -p 8000:8000 --name verademo ssessions/verademo-python
+Run in a Terminal:
 
+    docker run --rm -p 8000:8000 --name verademo-python ssessions/verademo-python
+
+Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+Then register as a new user and add some feeds!
+
+### Build your own Docker image
+
+Follow the instructions below for cloning and running locally, `cd` into the verademo-python directory and run in a Terminal:
+
+	docker build -t verademo-python .
+	docker run --rm -p 8000:8000 --name verademo-python verademo-python
+	
 Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 Then register as a new user and add some feeds!
