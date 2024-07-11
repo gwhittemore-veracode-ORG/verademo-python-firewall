@@ -56,6 +56,7 @@ Then register as a new user and add some feeds!
 To run the program locally without using docker:
 
 Prerequisite: Python 3.12.3
+
 To check Python version: `python --version` or `python3 --version`
 
 Clone the repository in terminal:
@@ -79,6 +80,7 @@ To be able to use the fortune feature in tools (Linux exclusive), run this befor
 To run the program locally without using docker:
 
 Prerequisite: Python 3.12.3
+
 To check Python version: `python --version` or `python3 --version`
 
 Clone the repository in terminal:
