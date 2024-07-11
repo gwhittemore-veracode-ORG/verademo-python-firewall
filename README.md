@@ -30,7 +30,7 @@ If you don't already have Docker this is a prerequisite.
 
 Visit [docker desktop](https://www.docker.com/products/docker-desktop/) and download your compatible version.  Follow installation instructions.  Open the Docker app.
 
-### Use pre-built Docker image
+### Use pre-built Docker image (EASIEST METHOD)
 
 Run in a Terminal:
 
@@ -51,9 +51,12 @@ Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 Then register as a new user and add some feeds!
 
-## Run locally without Docker (Linux/Mac only)
+## Run locally without Docker (Linux/Mac)
 
 To run the program locally without using docker:
+
+Prerequisite: Python 3.12.3
+To check Python version: `python --version` or `python3 --version`
 
 Clone the repository in terminal:
 
@@ -61,7 +64,7 @@ Clone the repository in terminal:
     cd verademo-python
 Download dependencies and start the server!
 
-    python3 -m venv env
+    python -m venv env
     source env/bin/activate
     pip install -r requirements.txt
     python manage.py runserver
@@ -70,6 +73,25 @@ Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
 To be able to use the fortune feature in tools (Linux exclusive), run this before running the server:
 
     apt-get install -y fortune-mod
+
+## Run locally without Docker (Windows)
+
+To run the program locally without using docker:
+
+Prerequisite: Python 3.12.3
+To check Python version: `python --version` or `python3 --version`
+
+Clone the repository in terminal:
+
+    git clone https://github.com/veracode-demo-labs/verademo-python.git
+    cd verademo-python
+Download dependencies and start the server! (Try running console commands with `python3` if `python` isn't found)
+
+    python -m venv env
+    env\Scripts\activate
+    pip install -r requirements.txt
+    python manage.py runserver
+Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 ## Exploitation Demos
 
