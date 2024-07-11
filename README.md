@@ -22,7 +22,7 @@ Blab-a-Gag is a fairly simple forum type application which allows:
 - `/tools` shows a tools page that shows a fortune or lets you ping a host.
 - `/reset` allows the user to reset the database
 
-## Run Docker image
+## Run Docker image (Easiest Method)
 
 If you don't already have Docker this is a prerequisite.
 
@@ -30,7 +30,7 @@ If you don't already have Docker this is a prerequisite.
 
 Visit [docker desktop](https://www.docker.com/products/docker-desktop/) and download your compatible version.  Follow installation instructions.  Open the Docker app.
 
-### Use pre-built Docker image (EASIEST METHOD)
+### Use pre-built Docker image
 
 Run in a Terminal:
 
