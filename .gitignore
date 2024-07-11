@@ -1,4 +1,9 @@
 __pycache__/
 db.sqlite3
 images/
+
+# ignore virtual environment
 env
+
+# ignore CLI-created package for static scanning
+verademo-python.zip

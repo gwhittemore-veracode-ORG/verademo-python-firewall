@@ -6,7 +6,6 @@ COPY requirements.txt .
 
 RUN pip3 install --no-cache-dir -r requirements.txt && apt update && apt-get install -y iputils-ping && apt-get install -y fortune-mod 
 
-
 COPY . .
 
 EXPOSE 8000
