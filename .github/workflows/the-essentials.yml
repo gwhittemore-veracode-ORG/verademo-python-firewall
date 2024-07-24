@@ -24,7 +24,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v4
         with: 
-          node-version: '22.3.0'
+          node-version: '20.14.0'
 
       - name: Zip app files
         run: | 
@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with: 
            name: scan-target
-           path: verademo.zip
+           path: verademo-python.zip
            
   upload-scan: 
     needs: checkout-and-package
