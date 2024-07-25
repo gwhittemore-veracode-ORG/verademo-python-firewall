@@ -25,7 +25,7 @@ def showTools(request):
 def processTools(request):
     host = request.POST.get('host')
     fortunefile = request.POST.get('fortunefile')
-    request.file = fortune() if fortunefile else ""
+    request.file = FortuneData() if fortunefile else RiddleData()
     request.host = host
     request.ping = ping(host) if host else ""
     
@@ -40,9 +40,9 @@ def ping(host):
     try:
         p = subprocess.Popen(['ping', '-c', '1', host], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
-        stdout = p.communicate(timeout=5)
+        stdout, stderr = p.communicate(timeout=5)
+        output = stdout.decode() 
     
-        output = stdout.decode() if stdout else ""
         logger.info(output)
         logger.info("Exit Code:", p.returncode)
     except subprocess.TimeoutExpired:
@@ -55,14 +55,10 @@ def ping(host):
     return output
 
 
-# Produces a fortune based on the submitted selection
-def fortune():
-    logger.info("Entering fortune")
 
-    fortune = FortuneData()
-    print(fortune.next())
-     
-    return fortune
+
+
+
 
 
 

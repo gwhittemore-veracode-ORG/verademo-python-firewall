@@ -1,9 +1,12 @@
 import random
+from django.shortcuts import render
 
-class FortuneData:
 
-    def __init__(self):
-        self.fortunes = [
+
+        
+
+def FortuneData():
+        fortunes = [
            "A beautiful, smart, and loving person will be coming into your life.",
             "A faithful friend is a strong defense.",
             "A fresh start will put you on your way.",
@@ -102,14 +105,12 @@ class FortuneData:
             "Happiness will bring you good luck.",
             "Happy life is just in front of you." 
         ]
-        def next(self):
-            return random.choice(self.fortunes)
+
+        return random.choice(fortunes)
 
 
-class RiddleData:
-
-    def _init_(self):
-        self.riddles = [
+def RiddleData():
+        riddles = [
             "Q: Why haven't you graduated yet?\nA: Well, Dad, I could have finished years ago, but I wanted my dissertation to rhyme.",
             "Q: Why did the cow cross the road?\nA: To get to the other side.",
             "Q: What has keys but can't open locks?\nA: A piano.",
@@ -160,6 +161,4 @@ class RiddleData:
             "Q: What has words, but never speaks?\nA: A book.",
             "Q: What has four wheels and flies?\nA: A garbage truck."
         ]
-
-        def next(self):
-            return random.choice(self.riddles)
+        return random.choice(riddles)
