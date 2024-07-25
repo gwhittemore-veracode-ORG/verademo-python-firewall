@@ -1,13 +1,11 @@
 # toolsController.py deals with the 'Tools' page and calls the tool functions used in the page
 import logging
 import subprocess
-import sys
-import shutil
-import socket
+
 
 from django.shortcuts import render
-
-
+from app.fortune.fortuneData import FortuneData
+from app.fortune.fortuneData import RiddleData
 
 logger = logging.getLogger("VeraDemo:toolsController")
 
@@ -27,7 +25,7 @@ def showTools(request):
 def processTools(request):
     host = request.POST.get('host')
     fortunefile = request.POST.get('fortunefile')
-    request.file = fortune(fortunefile) if fortunefile else ""
+    request.file = fortune() if fortunefile else ""
     request.host = host
     request.ping = ping(host) if host else ""
     
@@ -42,7 +40,7 @@ def ping(host):
     try:
         p = subprocess.Popen(['ping', '-c', '1', host], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
-        stdout, stderr = p.communicate(timeout=5)
+        stdout = p.communicate(timeout=5)
     
         output = stdout.decode() if stdout else ""
         logger.info(output)
@@ -58,29 +56,13 @@ def ping(host):
 
 
 # Produces a fortune based on the submitted selection
-def fortune(file):
-    cmd = f"/usr/games/fortune {file}"
-    output = ""
+def fortune():
     logger.info("Entering fortune")
-    sys.stdout.flush()
 
-    if shutil.which("fortune") is None:
-        sys.stdout.flush()
-        return "fortune not found"
-
-    try: 
-        p = subprocess.Popen(["bash", "-c", cmd], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        try:
-            stdout, stderr = p.communicate(timeout=5)
-            output = stdout.decode() if stdout else ""
-        except subprocess.TimeoutExpired:
-            logger.error("Fortune timed out")
-        except Exception as e:
-            logger.error("Error", e)
-    except Exception as e:
-        logger.error("Error", e)
-        
-    return output
+    fortune = FortuneData()
+    print(fortune.next())
+     
+    return fortune
 
 
 
