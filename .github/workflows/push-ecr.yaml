@@ -30,7 +30,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t verademo-python:$IMAGE_TAG .
-          docker tag verademo-python:$IMAGE_TAG $REPOSITORY:verademo-python-latest
-          docker tag verademo-python:$IMAGE_TAG $REPOSITORY:verademo-python-$IMAGE_TAG
-          docker push $REPOSITORY:verademo-python-latest
-          docker push $REPOSITORY:verademo-python-$IMAGE_TAG
+          docker tag verademo-python:$IMAGE_TAG $REGISTRY/$REPOSITORY:verademo-python-latest
+          docker tag verademo-python:$IMAGE_TAG $REGISTRY/$REPOSITORY:verademo-python-$IMAGE_TAG
+          docker push $REGISTRY/$REPOSITORY:verademo-python-latest
+          docker push $REGISRTY/$REPOSITORY:verademo-python-$IMAGE_TAG
