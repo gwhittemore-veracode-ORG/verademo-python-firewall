@@ -33,4 +33,4 @@ jobs:
           docker tag verademo-python:$IMAGE_TAG $REGISTRY/$REPOSITORY:verademo-python
           docker tag verademo-python:$IMAGE_TAG $REGISTRY/$REPOSITORY:verademo-python-$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:verademo-python
-          docker push $REGISRTY/$REPOSITORY:verademo-python-$IMAGE_TAG
+          docker push $REGISTRY/$REPOSITORY:verademo-python-$IMAGE_TAG
