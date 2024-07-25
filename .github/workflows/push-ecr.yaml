@@ -29,8 +29,8 @@ jobs:
           REPOSITORY: vuln_images
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t verademo-python .
-          docker tag verademo-python:$IMAGE_TAG $REPOSITORY:verademo-python:latest
-          docker tag verademo-python:$IMAGE_TAG $REPOSITORY:verademo-python:$IMAGE_TAG
-          docker push $REPOSITORY:verademo-python:latest
-          docker push $REPOSITORY:verademo-python:$IMAGE_TAG
+          docker build -t verademo-python:$IMAGE_TAG .
+          docker tag verademo-python:$IMAGE_TAG $REPOSITORY:verademo-python-latest
+          docker tag verademo-python:$IMAGE_TAG $REPOSITORY:verademo-python-$IMAGE_TAG
+          docker push $REPOSITORY:verademo-python-latest
+          docker push $REPOSITORY:verademo-python-$IMAGE_TAG
