@@ -29,7 +29,7 @@ jobs:
           REPOSITORY: vuln_images
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t verademoPython .
+          docker build -t verademo-python .
           docker tag verademoPython:$CI_PIPELINE_ID $REGISTRY/$REPOSITORY_URL:verademoPython-latest
           docker tag verademoPython:$CI_PIPELINE_ID $REGISTRY/$REPOSITORY_URL:verademoPython-$CI_PIPELINE_ID
           docker push $REPOSITORY_URL:verademoPython-latest
