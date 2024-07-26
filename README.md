@@ -71,9 +71,7 @@ Download dependencies and start the server!
     python manage.py runserver
 Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
-To be able to use the fortune feature in tools (Linux exclusive), run this before running the server:
 
-    apt-get install -y fortune-mod
 
 ## Run locally without Docker (Windows)
 
