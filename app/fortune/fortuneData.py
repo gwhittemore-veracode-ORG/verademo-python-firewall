@@ -2,9 +2,6 @@ import random
 from django.shortcuts import render
 
 
-
-        
-
 def FortuneData():
         fortunes = [
            "A beautiful, smart, and loving person will be coming into your life.",

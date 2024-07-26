@@ -1,11 +1,14 @@
 # toolsController.py deals with the 'Tools' page and calls the tool functions used in the page
 import logging
 import subprocess
-
+import sys
+import shutil
+import socket
 
 from django.shortcuts import render
-from app.fortune.fortuneData import FortuneData
-from app.fortune.fortuneData import RiddleData
+from app.fortune.fortuneData import FortuneData, RiddleData
+
+
 
 logger = logging.getLogger("VeraDemo:toolsController")
 
@@ -25,7 +28,7 @@ def showTools(request):
 def processTools(request):
     host = request.POST.get('host')
     fortunefile = request.POST.get('fortunefile')
-    request.file = FortuneData() if fortunefile else RiddleData()
+    request.file = fortune(fortunefile) if fortunefile else ""
     request.host = host
     request.ping = ping(host) if host else ""
     
@@ -41,8 +44,8 @@ def ping(host):
         p = subprocess.Popen(['ping', '-c', '1', host], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
         stdout, stderr = p.communicate(timeout=5)
-        output = stdout.decode() 
     
+        output = stdout.decode() if stdout else ""
         logger.info(output)
         logger.info("Exit Code:", p.returncode)
     except subprocess.TimeoutExpired:
@@ -55,10 +58,14 @@ def ping(host):
     return output
 
 
-
-
-
-
+# Produces a fortune based on the submitted selection
+def fortune(file):
+    if file=='fortunes':
+        return FortuneData()
+    elif file == 'riddles':
+        return RiddleData()
+   
+        
 
 
 
