@@ -2,9 +2,7 @@
 import logging
 import subprocess
 import os
-import sys
-import shutil
-import socket
+
 
 from django.shortcuts import render
 from app.fortune.fortuneData import FortuneData, RiddleData
