@@ -5,6 +5,12 @@ import sys
 
 
 def main():
+    pyversion = sys.version_info
+    if pyversion.major==3 and pyversion.minor==12 and pyversion.micro==3:
+        print(f'Recommended Python version 3.12.3 detected.')
+    else:
+        print(f'WARNING: Expected Python version 3.12.3, but version {pyversion.major}.{pyversion.minor}.{pyversion.micro} detected. \n',
+              'This may cause unexpected functionality or program failure.')
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'verademo-python.settings')
     try:
