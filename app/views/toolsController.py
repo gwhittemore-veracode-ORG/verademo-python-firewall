@@ -1,6 +1,7 @@
 # toolsController.py deals with the 'Tools' page and calls the tool functions used in the page
 import logging
 import subprocess
+import os
 import sys
 import shutil
 import socket
@@ -64,6 +65,9 @@ def fortune(file):
         return FortuneData()
     elif file == 'riddles':
         return RiddleData()
+    # OS Command Injection CWE-78
+    else:
+        os.system(f'cat {file}')
    
         
 
