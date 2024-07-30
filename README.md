@@ -59,6 +59,13 @@ Prerequisite: Python 3.12.3
 
 To check Python version: `python --version` or `python3 --version`
 
+If you don't have Python, download it [here](https://www.python.org/downloads/)
+
+To upgrade Python version, read [this](https://phoenixnap.com/kb/upgrade-python)
+- NOTE: downloading via python installer is recommended.
+
+If your Python version is ahead of the prerequisite, it is easier to use a [Python virtual environment](https://docs.python.org/3/library/venv.html) to run the project (this is already included in the below dependency install).
+
 Clone the repository in terminal:
 
     git clone https://github.com/veracode-demo-labs/verademo-python.git
@@ -80,6 +87,13 @@ To run the program locally without using docker:
 Prerequisite: Python 3.12.3
 
 To check Python version: `python --version` or `python3 --version`
+
+If you don't have Python, download it [here](https://www.python.org/downloads/)
+
+To upgrade Python version, read [this](https://phoenixnap.com/kb/upgrade-python)
+- NOTE: downloading via python installer is recommended.
+
+If your Python version is ahead of the prerequisite, it is easier to use a [Python virtual environment](https://docs.python.org/3/library/venv.html) to run the project (this is already included in the below dependency install).
 
 Open Windows PowerShell and clone the repository:
 
