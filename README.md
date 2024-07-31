@@ -6,7 +6,7 @@ This project is intentionally vulnerable! It contains known vulnerabilities and 
 
 ## About
 
-Blab-a-Gag is a fairly simple forum type application which allows:
+Blab-a-Gag is a simple forum type application that allows:
 
 - Users can post a one-liner joke.
 - Users can follow the jokes of other users or not (listen or ignore).
@@ -28,11 +28,11 @@ If you don't already have Docker this is a prerequisite.
 
 ### Download Docker
 
-Visit [docker desktop](https://www.docker.com/products/docker-desktop/) and download your compatible version.  Follow installation instructions.  Open the Docker app.
+Visit [docker desktop](https://www.docker.com/products/docker-desktop/) and download the compatible version for your operating system. Follow the installation instructions and open the Docker app.
 
 ### Use pre-built Docker image
 
-Run in a Terminal:
+Run the following command in a terminal:
 
     docker run --rm -p 8000:8000 --name verademo-python ssessions/verademo-python
 
@@ -42,7 +42,7 @@ Then register as a new user and add some feeds!
 
 ### Build your own Docker image
 
-Follow the instructions below for cloning and running locally, `cd` into the verademo-python directory and run in a Terminal:
+Follow the instructions below for cloning and running locally. After cloning, cd into the verademo-python directory and run:
 
 	docker build -t verademo-python .
 	docker run --rm -p 8000:8000 --name verademo-python verademo-python
@@ -53,7 +53,7 @@ Then register as a new user and add some feeds!
 
 ## Run locally without Docker (Linux/Mac)
 
-To run the program locally without using docker:
+To run the program locally without Docker:
 
 Prerequisite: Python 3.12.3
 
@@ -61,16 +61,16 @@ To check Python version: `python --version` or `python3 --version`
 
 If you don't have Python, download it [here](https://www.python.org/downloads/)
 
-To upgrade Python version, read [this](https://phoenixnap.com/kb/upgrade-python)
-- NOTE: downloading via python installer is recommended.
+To upgrade Python version, read [this guide](https://phoenixnap.com/kb/upgrade-python)
+- NOTE: downloading via Python installer is recommended.
 
-If your Python version is ahead of the prerequisite, it is easier to use a [Python virtual environment](https://docs.python.org/3/library/venv.html) to run the project (this is already included in the below dependency install).
+If your Python version is newer than the prerequisite, it is easier to use a [Python virtual environment](https://docs.python.org/3/library/venv.html) to run the project (this is already included in the dependency install below).
 
 Clone the repository in terminal:
 
     git clone https://github.com/veracode-demo-labs/verademo-python.git
     cd verademo-python
-Download dependencies and start the server!
+Download dependencies and start the server:
 
     python -m venv env
     source env/bin/activate
@@ -82,18 +82,18 @@ Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 ## Run locally without Docker (Windows)
 
-To run the program locally without using docker:
+To run the program locally without Docker:
 
 Prerequisite: Python 3.12.3
 
-To check Python version: `python --version` or `python3 --version`
+To check your Python version: `python --version` or `python3 --version`
 
 If you don't have Python, download it [here](https://www.python.org/downloads/)
 
-To upgrade Python version, read [this](https://phoenixnap.com/kb/upgrade-python)
-- NOTE: downloading via python installer is recommended.
+To upgrade your Python version read [this guide](https://phoenixnap.com/kb/upgrade-python)
+- NOTE: Downloading via the Python installer is recommended.
 
-If your Python version is ahead of the prerequisite, it is easier to use a [Python virtual environment](https://docs.python.org/3/library/venv.html) to run the project (this is already included in the below dependency install).
+If your Python version is newer than the prerequisite, it is easier to use a[Python virtual environment](https://docs.python.org/3/library/venv.html) to run the project (this is already included in the dependency install below).
 
 Open Windows PowerShell and clone the repository:
 
