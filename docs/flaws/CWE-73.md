@@ -1,4 +1,4 @@
-# CWE-73: External COntrol of File Name or Path in VeraDemo
+# CWE-73: External Control of File Name or Path in VeraDemo
 VeraDemo uses untrusted data while constructing file paths. This leaves the application vulnerable to malicious users uploading their own files or exfiltrating them from the filesystem. This allows for code execution or be used as a step to compromise the system
 
 # Mitigate
