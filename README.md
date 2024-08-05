@@ -81,7 +81,7 @@ If you don't have Python, download it [here](https://www.python.org/downloads/)
 To upgrade your Python version read [this guide](https://phoenixnap.com/kb/upgrade-python)
 - NOTE: Downloading via the Python installer is recommended.
 
-If your Python version is newer than the prerequisite, it is easier to use a[Python virtual environment](https://docs.python.org/3/library/venv.html) to run the project (this is already included in the dependency install below).
+If your Python version is newer than the prerequisite, it is easier to use a [Python virtual environment](https://docs.python.org/3/library/venv.html) to run the project (this is already included in the dependency install below).
 
 Open Windows PowerShell and clone the repository:
 
