@@ -30,7 +30,6 @@ If you don't already have Docker this is a prerequisite.
 
 Visit [docker desktop](https://www.docker.com/products/docker-desktop/) and download the compatible version for your operating system. Follow the installation instructions and open the Docker app.
 
-
 ### Build your Docker image
 
 Follow the instructions below for cloning and running locally. After cloning, cd into the verademo-python directory and run:
@@ -68,8 +67,6 @@ Download dependencies and start the server:
     pip install -r requirements.txt
     python manage.py runserver
 Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
-
-
 
 ## Run locally without Docker (Windows)
 
