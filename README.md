@@ -30,17 +30,8 @@ If you don't already have Docker this is a prerequisite.
 
 Visit [docker desktop](https://www.docker.com/products/docker-desktop/) and download the compatible version for your operating system. Follow the installation instructions and open the Docker app.
 
-### Use pre-built Docker image
 
-Run the following command in a terminal:
-
-    docker run --rm -p 8000:8000 --name verademo-python ssessions/verademo-python
-
-Navigate to: [http://127.0.0.1:8000](http://127.0.0.1:8000).
-
-Then register as a new user and add some feeds!
-
-### Build your own Docker image
+### Build your Docker image
 
 Follow the instructions below for cloning and running locally. After cloning, cd into the verademo-python directory and run:
 
