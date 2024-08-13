@@ -9,11 +9,15 @@ def home(request):
     # Equivalent of HomeController.java
     if request.session.get('username'):
         # START BAD CODE
-        host_ip = request.META['HTTP_HOST'].split(':')[0]
-        redir = urllib.request.Request('http://' + host_ip + ':' + request.META['SERVER_PORT'] + '/feed')
-        urllib.request.urlopen(redir)
+        try:
+            host_ip = request.META['HTTP_HOST'].split(':')[0]
+            print("da")
+            redir = urllib.request.Request('http://' + host_ip + ':' + request.META['SERVER_PORT'] + '/feed')
+            urllib.request.urlopen(redir, timeout=5)
         # END BAD CODE
-        # GOOD CODE:
-        # return redirect('feed')
+        except: 
+            # GOOD CODE:
+            print("redir")
+            return redirect('feed')
     
     return login(request)
