@@ -4,6 +4,10 @@ Notes, tips, and hints for using the various Veracode scan types with this appli
 
 Also see the `docs/flaws` folder for in-depth explanations of the various exploits exposed in this application.
 
+## Important Tips
+This app was built to have lots of exploitable vulnerabilities. As a result of this, SQL injection is very easy, and will occur if any `'` characters are typed as input.
+ - Adding a Blab that contains a `'` will cause the user to be logged out, and a blab of `None` will be filled in.
+
 ## Static scanning
 
 Build the app:
