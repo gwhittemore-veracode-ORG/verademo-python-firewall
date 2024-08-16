@@ -36,7 +36,29 @@ SBOM generation for the application is supported after an SCA scan ([link](https
 
 SBOM generation for the Docker container is supported by the Container/CLI scanner ([link](https://docs.veracode.com/r/veracode_sbom)).
 
+
 ## Veracode Fix
 
 This application has flaws that can be fixed with [Veracode Fix](https://docs.veracode.com/r/veracode_fix).  For an example of one:
 
+### Build the app
+
+	zip -r verademo-python.zip app verademo-python *.py requirements.txt -x "*__pycache__*"
+
+### Run the Veracode Pipeline scanner
+
+	java -jar ${path-to-pipeline-scanner}/pipeline-scan.jar -f verademo-python.zip -esd true 
+
+### Run Veracode Fix
+
+	veracode fix app/views/userController.py
+
+The first flaw is an SQL Injection around line 186 that can be Fixed.
+
+To verify the fix re-build the app and re-run the Pipeline scanner. 
+
+## Container scan
+
+From the root of the project run the Veracode container scanner:
+
+	veracode scan --type directory --source . --output container_results.json	
