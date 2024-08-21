@@ -32,8 +32,10 @@ Visit [docker desktop](https://www.docker.com/products/docker-desktop/) and down
 
 ### Build your Docker image
 
-Follow the instructions below for cloning and running locally. After cloning, cd into the verademo-python directory and run:
+Follow the instructions below for cloning and building the application through docker:
 
+	git clone https://github.com/veracode-demo-labs/verademo-python.git
+    	cd verademo-python
 	docker build -t verademo-python .
 	docker run --rm -p 8000:8000 --name verademo-python verademo-python
 	
