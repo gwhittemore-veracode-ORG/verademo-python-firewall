@@ -16,8 +16,7 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Build PIP_INDEX_URL correctly (include %2F only if GROUP is set)
-      - name: Compute PIP_INDEX_URL
+      - name: Compute / Set PIP_INDEX_URL
         shell: bash
         run: |
           if [ -n "${PHYLUM_GROUP}" ]; then
@@ -27,7 +26,7 @@ jobs:
           fi
           echo "PIP_INDEX_URL=https://${USER}:${PHYLUM_API_KEY}@pypi.phylum.io/simple/" >> "$GITHUB_ENV"
 
-      - name: Install deps (enforced by Phylum)
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
