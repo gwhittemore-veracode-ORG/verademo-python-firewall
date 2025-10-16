@@ -1,26 +1,31 @@
 name: Package Firewall
 on:
-  pull_request:
-    branches: [ main ]
-  push:
-    branches: [ main ]
+  pull_request: { branches: [ main ] }
+  push: { branches: [ main ] }
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      PHYLUM_ORG: ${{ secrets.PHYLUM_ORG }}
-      PHYLUM_GROUP: ${{ secrets.PHYLUM_GROUP }}
+      PHYLUM_ORG: ${{ secrets.PHYLUM_ORG }}        # e.g., myorg
+      PHYLUM_GROUP: ${{ secrets.PHYLUM_GROUP }}    # e.g., demo_firewall (or leave empty)
       PHYLUM_API_KEY: ${{ secrets.PHYLUM_API_KEY }}
-      # Point pip to Phylum; URL-encode the "/" in ORG/GROUP as %2F
-      PIP_INDEX_URL: <https://$>{
-        { secrets.PHYLUM_ORG }}%2F${{ secrets.PHYLUM_GROUP }}:${{ secrets.PHYLUM_API_KEY }}@pypi.phylum.io/simple/
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      # Build PIP_INDEX_URL correctly (include %2F only if GROUP is set)
+      - name: Compute PIP_INDEX_URL
+        shell: bash
+        run: |
+          if [ -n "${PHYLUM_GROUP}" ]; then
+            USER="${PHYLUM_ORG}%2F${PHYLUM_GROUP}"
+          else
+            USER="${PHYLUM_ORG}"
+          fi
+          echo "PIP_INDEX_URL=https://${USER}:${PHYLUM_API_KEY}@pypi.phylum.io/simple/" >> "$GITHUB_ENV"
 
       - name: Install deps (enforced by Phylum)
         run: |
